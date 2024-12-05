@@ -8,8 +8,9 @@ app.use(express.static('./public'))
 
 app.get('/', (req, res) => {
   console.log(__dirname)
-  console.log(path.resolve(__dirname, './navbar-app/index.html'))
-  res.sendFile(path.resolve(__dirname, './navbar-app/index.html'))
+  // path.resolve will give the absolute path (đường dẫn tuyệt đối)
+  // console.log(path.resolve(__dirname, './navbar-app/index.html'))
+  res.sendFile(path.resolve('./navbar-app/index.html'))
 })
 
 app.all('*', (req, res) => {
