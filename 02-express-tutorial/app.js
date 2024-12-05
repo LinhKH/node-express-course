@@ -6,12 +6,12 @@ const app = express()
 // setup static and middleware
 app.use(express.static('./public'))
 
-app.get('/', (req, res) => {
-  console.log(__dirname)
-  // path.resolve will give the absolute path (đường dẫn tuyệt đối)
-  // console.log(path.resolve(__dirname, './navbar-app/index.html'))
-  res.sendFile(path.resolve('./navbar-app/index.html'))
-})
+// nếu có file index.html trong thư mục public thì nó sẽ tự động hiển thị, không cần phải viết lại như dưới
+// app.get('/', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, './navbar-app/index.html'))
+//   adding to static assets
+//   SSR
+// })
 
 app.all('*', (req, res) => {
   res.status(404).send('resource not found')
