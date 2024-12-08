@@ -18,6 +18,8 @@ const showTask = async () => {
     taskIDDOM.textContent = taskID
     taskNameDOM.value = name
     tempName = name
+    
+    taskCompletedDOM.checked = completed
     if (completed) {
       taskCompletedDOM.checked = true
     }
