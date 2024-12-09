@@ -43,6 +43,10 @@ formDOM.addEventListener('submit', async (e) => {
 
 btnDOM.addEventListener('click', async () => {
   const token = localStorage.getItem('token')
+  if (!token) {
+    resultDOM.innerHTML = '<p>No token found</p>';
+    return;
+  }
   try {
     const { data } = await axios.get('/api/v1/dashboard', {
       headers: {
@@ -51,10 +55,10 @@ btnDOM.addEventListener('click', async () => {
     })
     resultDOM.innerHTML = `<h5>${data.msg}</h5><p>${data.secret}</p>`
 
-    data.secret
   } catch (error) {
     localStorage.removeItem('token')
-    resultDOM.innerHTML = `<p>${error.response.data.msg}</p>`
+    // resultDOM.innerHTML = `<p>${error.response.data.msg}</p>`
+    resultDOM.innerHTML = `<p>${error.response?.data?.msg || 'An error occurred'}</p>`;
   }
 })
 
