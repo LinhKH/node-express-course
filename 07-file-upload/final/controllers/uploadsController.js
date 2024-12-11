@@ -40,4 +40,5 @@ const uploadProductImage = async (req, res) => {
 
 module.exports = {
   uploadProductImage,
+  uploadProductImageLocal
 };
