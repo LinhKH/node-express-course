@@ -86,7 +86,7 @@ function Register() {
           disabled={isLoading}
           onClick={() =>
             dispatch(
-              loginUser({ email: 'admin@gmail.com', password: 'password' })
+              loginUser({ email: 'userTest@gmail.com', password: 'password' })
             )
           }
         >
