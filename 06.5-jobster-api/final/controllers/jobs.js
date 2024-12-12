@@ -113,11 +113,22 @@ const showStats = async (req, res) => {
     { $group: { _id: '$status', count: { $sum: 1 } } },
   ]);
 
-  stats = stats.reduce((acc, curr) => {
-    const { _id: title, count } = curr;
-    acc[title] = count;
-    return acc;
-  }, {});
+  // case 1
+  // stats = stats.reduce((acc, curr) => {
+    //   const { _id: title, count } = curr;
+    //   acc[title] = count;
+    //   return acc;
+    // }, {});
+    
+    // case 2
+    // stats = stats.reduce((acc, { _id: title, count }) => ({ ...acc, [title]: count }), {});
+
+    // case 3
+    const result = {};
+    stats.forEach(({ _id: title, count }) => {
+      result[title] = count;
+    });
+    stats = result;
 
   const defaultStats = {
     pending: stats.pending || 0,

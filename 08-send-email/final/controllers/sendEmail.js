@@ -8,8 +8,8 @@ const sendEmailEthereal = async (req, res) => {
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-      user: 'marlene.legros@ethereal.email',
-      pass: 'va4q5BKKtry7aq58Gv',
+      user: 'candida.franecki92@ethereal.email',
+      pass: 'CJSCsQEr61VNxHzaAr',
     },
   });
 
@@ -36,4 +36,4 @@ const sendEmail = async (req, res) => {
   res.json(info);
 };
 
-module.exports = sendEmail;
+module.exports = {sendEmailEthereal, sendEmail};
