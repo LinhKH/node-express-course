@@ -6,7 +6,10 @@ const logoutBtn = document.querySelector('.logout-btn');
 
 loginFormDOM.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (!emailInput.value || !passwordInput.value) return;
+  if (!emailInput.value || !passwordInput.value) {
+    alert('Please fill out both the email and password fields.');
+    return;
+  }
   const email = emailInput.value;
   const password = passwordInput.value;
   const user = { email, password };

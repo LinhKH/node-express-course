@@ -1,0 +1,17 @@
+Both req.cookies and req.signedCookies serve different purposes in an Express application, 
+and the choice of which to use depends on your specific needs for security and integrity.
+
+* req.cookies
+- Purpose: Contains all cookies that are not signed.
+- Use Case: Suitable for storing non-sensitive information where data integrity is not a critical concern.
+- Example: Storing user preferences, session IDs (if not sensitive), or other non-sensitive data.
+* req.signedCookies
+- Purpose: Contains all cookies that have been signed and verified using a secret key.
+- Use Case: Suitable for storing sensitive information where data integrity and authenticity are important.
+- Example: Storing authentication tokens, user IDs, or other sensitive data that should not be tampered with.
+* Security Considerations
+- Signed Cookies: Provide an additional layer of security by ensuring that the cookie data has not been altered. 
+The server signs the cookie with a secret key, and when the cookie is received, it is verified using the same key. 
+If the cookie has been tampered with, it will not be verified successfully.
+- Unsigned Cookies: Do not provide this level of security. If the data in the cookie is altered, 
+the server has no way of detecting the tampering.
