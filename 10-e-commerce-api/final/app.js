@@ -44,7 +44,9 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
+// app.use(express.static('../final-front-end/front-end'));
+app.use(express.static('../final-front-end/react-front-end/public'));
 app.use(fileUpload());
 
 // Both req.cookies and req.signedCookies serve different purposes in an Express application, 
