@@ -18,14 +18,14 @@ const getSingleUser = async (req, res) => {
   if (!user) {
     throw new CustomError.NotFoundError(`No user with id : ${req.params.id}`);
   }
-  checkPermissions(req.user, user._id);
+  checkPermissions(req.user, user._id); // check if user is authorized to access this route or not
   res.status(StatusCodes.OK).json({ user });
 };
 
 const showCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: req.user });
 };
-// update user with user.save()
+// update user with user.save() method and attach cookies to response
 const updateUser = async (req, res) => {
   const { email, name } = req.body;
   if (!email || !name) {
