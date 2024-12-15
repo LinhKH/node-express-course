@@ -18,6 +18,8 @@ const authenticateUser = async (req, res, next) => {
 };
 
 const authorizePermissions = (...roles) => {
+  // Rest Parameter: The ...roles syntax collects all the arguments passed to the authorizePermissions function into a single array named roles.
+  // roles = ['admin', 'user']
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       throw new CustomError.UnauthorizedError(

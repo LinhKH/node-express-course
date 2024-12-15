@@ -14,7 +14,7 @@ const {
 
 router
   .route('/')
-  .get(authenticateUser, authorizePermissions('admin'), getAllUsers);
+  .get(authenticateUser, authorizePermissions('admin'), getAllUsers); // only admin can access. ('admin','user') is a rest parameter
 
 router.route('/showMe').get(authenticateUser, showCurrentUser);
 router.route('/updateUser').patch(authenticateUser, updateUser);
