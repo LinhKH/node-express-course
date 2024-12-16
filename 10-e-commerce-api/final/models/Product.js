@@ -75,6 +75,7 @@ ProductSchema.virtual('reviews', {
   localField: '_id',
   foreignField: 'product',
   justOne: false,
+  // match: { rating: { $gte: 2 } },
 });
 
 ProductSchema.pre('remove', async function (next) {
