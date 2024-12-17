@@ -31,6 +31,9 @@ const ReviewSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// the code snippet creates a compound index on the product and user fields of the Review schema, with a uniqueness constraint. 
+// This ensures that each user can only create one review per product, helping to maintain data integrity and improve query performance for operations involving these fields.
 ReviewSchema.index({ product: 1, user: 1 }, { unique: true });
 
 ReviewSchema.statics.calculateAverageRating = async function (productId) {
@@ -58,11 +61,15 @@ ReviewSchema.statics.calculateAverageRating = async function (productId) {
   }
 };
 
+// Using this.constructor in the provided code snippet allows you to call a static method on the model that the current document instance belongs to. 
+// In this case, this refers to an instance of the Review model, and this.constructor refers to the Review model itself.
 ReviewSchema.post('save', async function () {
+  console.log('Calculating average rating after save');
   await this.constructor.calculateAverageRating(this.product);
 });
 
 ReviewSchema.post('remove', async function () {
+  console.log('Calculating average rating after remove');
   await this.constructor.calculateAverageRating(this.product);
 });
 
