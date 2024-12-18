@@ -9,7 +9,7 @@ function Register() {
   const [values, setValues] = useState({
     name: '',
     email: '',
-    password: '',
+    password: 'password',
   });
 
   const {

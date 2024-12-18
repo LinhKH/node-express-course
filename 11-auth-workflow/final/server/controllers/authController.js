@@ -66,6 +66,8 @@ const verifyEmail = async (req, res) => {
   }
 
   (user.isVerified = true), (user.verified = Date.now());
+  // user.isVerified = true;
+  // user.verified = Date.now();
   user.verificationToken = '';
 
   await user.save();
@@ -121,6 +123,7 @@ const login = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ user: tokenUser });
 };
+
 const logout = async (req, res) => {
   await Token.findOneAndDelete({ user: req.user.userId });
 
@@ -166,6 +169,7 @@ const forgotPassword = async (req, res) => {
     .status(StatusCodes.OK)
     .json({ msg: 'Please check your email for reset password link' });
 };
+
 const resetPassword = async (req, res) => {
   const { token, email, password } = req.body;
   if (!token || !email || !password) {

@@ -1,0 +1,56 @@
+* Access Token và Refresh Token là gì?
+    Cả Access Token và Refresh Token là các thành phần chính trong hệ thống xác thực và quản lý phiên (session) trong ứng dụng web hoặc API. 
+    Chúng thường được sử dụng trong các giao thức bảo mật như OAuth 2.0 và JWT (JSON Web Token).
+1. Access Token
+Định nghĩa:
+Một chuỗi ký tự mã hóa được cấp phát cho một client (ứng dụng người dùng) sau khi người dùng xác thực thành công.
+Access Token chứng minh rằng ứng dụng được quyền truy cập vào tài nguyên của người dùng trong một khoảng thời gian ngắn.
+
+Đặc điểm:
+
+Thời gian sống ngắn (short-lived): Thường chỉ có hiệu lực trong vài phút đến vài giờ để giảm nguy cơ bị lạm dụng nếu bị đánh cắp.
+Chứa thông tin xác thực: Dữ liệu mã hóa bên trong token (ví dụ: user ID, quyền truy cập) được giải mã và xác thực trên server hoặc qua các thư viện.
+Được sử dụng để gọi API: Client đính kèm Access Token trong tiêu đề HTTP (thường là Authorization: Bearer <token>) để truy cập tài nguyên.
+
+Nhược điểm:
+Nếu Access Token hết hạn, người dùng phải thực hiện xác thực lại hoặc sử dụng Refresh Token để cấp lại Access Token mới.
+
+2. Refresh Token
+Định nghĩa:
+Một chuỗi ký tự dài hạn được tạo ra cùng với Access Token và chỉ dùng để cấp phát Access Token mới sau khi Access Token cũ hết hạn.
+
+Đặc điểm:
+
+Thời gian sống dài (long-lived): Có thể tồn tại vài ngày, vài tuần, hoặc lâu hơn, tùy thuộc vào cấu hình bảo mật.
+Bảo mật cao hơn: Refresh Token không được gửi kèm trong mỗi yêu cầu API. Thay vào đó, nó chỉ được gửi đến một endpoint an toàn (ví dụ: /auth/refresh-token) để lấy Access Token mới.
+Không chứa thông tin xác thực: Thường chỉ là một mã ngẫu nhiên dùng để xác nhận với server.
+
+Nhược điểm:
+Nếu Refresh Token bị đánh cắp, kẻ tấn công có thể tạo Access Token mới và chiếm quyền điều khiển.
+
+* Quy trình sử dụng
+- Khi người dùng đăng nhập:
+Server xác thực thông tin đăng nhập (email, mật khẩu, hoặc thông qua OAuth).
+Server trả về cả Access Token và Refresh Token.
+
+- Khi gọi API:
+Client gửi Access Token kèm yêu cầu.
+Server xác minh token. Nếu hợp lệ, trả về dữ liệu yêu cầu.
+
+- Khi Access Token hết hạn:
+Client gửi Refresh Token đến endpoint /refresh-token để lấy Access Token mới.
+Server kiểm tra Refresh Token, nếu hợp lệ, phát hành Access Token mới.
+
+- Khi Refresh Token hết hạn:
+Người dùng cần đăng nhập lại để lấy cả Access Token và Refresh Token mới.
+
+* So sánh Access Token và Refresh Token
+Đặc điểm	        Access Token	                        Refresh Token
+Thời gian sống	    Ngắn (vài phút đến vài giờ)	            Dài (vài ngày hoặc lâu hơn)
+Chức năng	        Truy cập tài nguyên (API)	            Lấy Access Token mới
+Sử dụng	            Được gửi kèm mỗi yêu cầu API	        Chỉ gửi khi Access Token hết hạn
+Rủi ro bảo mật	    Cao hơn (vì được gửi thường xuyên)	    Thấp hơn (ít được sử dụng)
+
+* Khi nào cần dùng Refresh Token?
+Khi bạn muốn tránh yêu cầu người dùng đăng nhập lại mỗi khi Access Token hết hạn.
+Khi cần thiết kế một hệ thống an toàn, cho phép quản lý phiên mà không ảnh hưởng đến hiệu suất API.

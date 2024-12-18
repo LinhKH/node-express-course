@@ -12,7 +12,7 @@ function Login() {
   const history = useHistory();
   const [values, setValues] = useState({
     email: '',
-    password: '',
+    password: 'password',
   });
   const { alert, showAlert, loading, setLoading, hideAlert } = useLocalState();
 
