@@ -16,13 +16,13 @@ const {
 router
   .route('/')
   .post(authenticateUser, createOrder)
-  .get(authenticateUser, authorizePermissions('admin'), getAllOrders);
+  .get(authenticateUser, authorizePermissions('admin'), getAllOrders); // only admin can view all orders
 
 router.route('/showAllMyOrders').get(authenticateUser, getCurrentUserOrders);
 
 router
   .route('/:id')
-  .get(authenticateUser, getSingleOrder)
-  .patch(authenticateUser, updateOrder);
+  .get(authenticateUser, getSingleOrder) // only the user who created the order can view it
+  .patch(authenticateUser, updateOrder); // only the user who created the order can update it
 
 module.exports = router;
