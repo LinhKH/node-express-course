@@ -188,6 +188,8 @@ const resetPassword = async (req, res) => {
       user.passwordToken = null;
       user.passwordTokenExpirationDate = null;
       await user.save();
+    } else {
+      throw new CustomError.BadRequestError('Invalid or expired token');
     }
   }
 

@@ -1,18 +1,26 @@
-const nodemailer = require('nodemailer');
-const nodemailerConfig = require('./nodemailerConfig');
+const nodemailer = require("nodemailer");
+const nodemailerConfig = require("./nodemailerConfig");
 
 const sendEmail = async ({ to, subject, html }) => {
-  let testAccount = await nodemailer.createTestAccount();
+  try {
+    let testAccount = await nodemailer.createTestAccount();
 
-  const transporter = nodemailer.createTransport(nodemailerConfig);
+    const transporter = nodemailer.createTransport(nodemailerConfig);
 
-  console.log('transporter', transporter);
-  return transporter.sendMail({
-    from: '"Coding Addict" <mr.linh1090@gmail.com>', // sender address
-    to,
-    subject,
-    html,
-  });
+    const mailOptions = {
+      from: '"Coding Addict" <mr.linh1090@gmail.com>', // sender address
+      to,
+      subject,
+      html,
+    };
+
+    const info = transporter.sendMail(mailOptions);
+    return info;
+    
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw new Error("Email could not be sent");
+  }
 };
 
 module.exports = sendEmail;
